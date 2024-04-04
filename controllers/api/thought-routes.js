@@ -1,0 +1,1 @@
+//thoughts GET ALL, GET ONE, POST, PUT, DELETE
