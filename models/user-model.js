@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const thoughtSchema = require('./thought-model.js');
 
-const userSchema = new Mongoose.Schema({
+const userSchema = new mongoose.Schema({
     username: {type: String,
          unique: true,
           required: true,
