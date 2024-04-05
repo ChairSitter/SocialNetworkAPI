@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
          unique: true,
           required: true,
            match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']},
-    thoughts: [thoughtSchema], //TODO ensure this links
+    thoughts: [thoughtSchema],
     friends: [userSchema] //TODO ensure this works
 });
 
