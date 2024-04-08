@@ -14,8 +14,8 @@ const userSchema = new mongoose.Schema({
         required: true,
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     },
-    thoughts: [thoughtSchema],
-    friends: [this]
+    thoughts: {type: Array},
+    friends: {type: Array}
 },
     {
         toJSON: { virtuals: true }
@@ -27,4 +27,4 @@ userSchema.virtual('friendCount').get(function () {
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = (User, userSchema);
+module.exports = User;
