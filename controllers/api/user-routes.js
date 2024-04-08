@@ -24,7 +24,7 @@ router.get('/:id', async(req, res) => {
 
 router.post('/', async(req, res) => {
     try {
-        const newUser = await Post.create(req.body);
+        const newUser = await User.create(req.body);
         res.status(200).json(newUser);
     } catch(err) {
         res.status(400).json(err);
@@ -53,3 +53,23 @@ router.delete('/:id', async(req, res) => {
         res.status(400).json(err);
     }  
 })
+
+//post and delete routes for friends of a user
+
+router.post('/api/users/:userId/friends/:friendId', async(req, res) => {
+    try {
+        
+    } catch(err) {
+        res.status(400).json(err);
+    }
+})
+
+router.delete('/api/users/:userId/friends/:friendId', async(req, res) => {
+    try {
+
+    } catch(err) {
+        res.status(400).json(err);
+    }
+})
+
+module.exports = router;

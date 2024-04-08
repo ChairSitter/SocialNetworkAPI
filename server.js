@@ -4,7 +4,7 @@ const db = require('./config/connection');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-const routes = require('./controllers');
+const routes = require('./controllers/api/');
 
 app.use(routes)
 app.use(express.static('./public'))
