@@ -5,11 +5,19 @@ const formatDate = (date) => {
 }
 
 const reactionSchema = new mongoose.Schema({
-    reactionId: { default: new ObjectId },
+    reactionId: {
+        type: mongoose.Schema.Types.ObjectId,
+        default: new mongoose.Types.ObjectId
+    },
     reactionBody: { type: String, required: true, maxLength: 280 },
     username: { type: String, required: true },
     createdAt: { type: Date, default: Date.now, get: formatDate },
-})
+},
+    {
+        toJSON: { virtuals: true },
+        toJSON: { getters: true }
+    }
+);
 
 const thoughtSchema = new mongoose.Schema({
     thoughtText: { type: String, required: true, maxLength: 280 },
@@ -19,9 +27,9 @@ const thoughtSchema = new mongoose.Schema({
 },
     {
         toJSON: { virtuals: true },
-        toJSON: { getters: true}
+        toJSON: { getters: true }
     }
-)
+);
 
 thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;

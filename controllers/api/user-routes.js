@@ -6,7 +6,7 @@ const { ObjectId } = require('mongodb');
 
 router.get('/', async(req, res) => {
     try {
-        const response = await User.findAll({}).lean();
+        const response = await User.find({}).lean();
         res.status(200).json(response);
     } catch(err) {
         res.status(400).json(err);
@@ -64,6 +64,7 @@ router.post('/:userId/friends/:friendId', async(req, res) => {
             {$push: {friends: req.params.friendId}},
             {new: true}
         )
+        res.status(200).json(newFriend);
     } catch(err) {
         res.status(400).json(err);
     }
