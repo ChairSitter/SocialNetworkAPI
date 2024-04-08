@@ -2,10 +2,11 @@
 //friends POST and DELETE
 const router = require('express').Router();
 const { User } = require('../../models');
+const { ObjectId } = require('mongodb');
 
 router.get('/', async(req, res) => {
     try {
-        const response = await User.find({}).lean();
+        const response = await User.findAll({}).lean();
         res.status(200).json(response);
     } catch(err) {
         res.status(400).json(err);

@@ -1,6 +1,7 @@
 //thoughts GET ALL, GET ONE, POST, PUT, DELETE
 const router = require('express').Router();
 const { Thought, User } = require('../../models');
+const { ObjectId } = require('mongodb');
 
 router.get('/', async(req, res) => {
     try {
@@ -19,8 +20,6 @@ router.get('/:id', async(req, res) => {
         res.status(400).json(err);
     }
 })
-
-//post to create new thought
 
 router.post('/', async (req, res) => {
     try {
