@@ -56,17 +56,25 @@ router.delete('/:id', async(req, res) => {
 
 //post and delete routes for friends of a user
 
-router.post('/api/users/:userId/friends/:friendId', async(req, res) => {
+router.post('/:userId/friends/:friendId', async(req, res) => {
     try {
-        
+        const newFriend = await User.findOneAndUpdate(
+            {_id: req.params.userId},
+            {$push: {friends: req.params.friendId}},
+            {new: true}
+        )
     } catch(err) {
         res.status(400).json(err);
     }
 })
 
-router.delete('/api/users/:userId/friends/:friendId', async(req, res) => {
+router.delete('/:userId/friends/:friendId', async(req, res) => {
     try {
-
+        const deleteReaction = await User.findOneAndUpdate(
+            {_id: req.params.userId},
+            {$pull: {reactions: req.params.friendId}},
+            {new: true}
+        )
     } catch(err) {
         res.status(400).json(err);
     }
