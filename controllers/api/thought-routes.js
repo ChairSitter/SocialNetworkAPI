@@ -14,7 +14,7 @@ router.get('/', async(req, res) => {
 
 router.get('/:id', async(req, res) => {
     try {
-        const response = await Thought.findOne({_id: req.params.id});
+        const response = await Thought.findById(req.params.id);
         res.status(200).json(response);
     } catch(err){
         res.status(400).json(err);
@@ -26,11 +26,13 @@ router.post('/', async (req, res) => {
         const newThought = await Thought.create(req.body);
         const updateUser = await User.findOneAndUpdate(
             {username: req.body.username},
-            { $push: {thoughts: req.body}},
+            { $push: {thoughts: newThought._id}},
             {new: true}
         )
-        res.status(200).json(newThought);
-        res.status(200).json(updateUser);
+        const populatedUser = await User.findById(
+            updateUser._id 
+        ).populate('thoughts');
+        res.status(200).json(populatedUser);
     } catch(err) {
         res.status(400).json(err);
     }

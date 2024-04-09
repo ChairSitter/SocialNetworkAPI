@@ -29,7 +29,7 @@ router.post('/', async(req, res) => {
             username: req.body.username,
             email: req.body.email, 
         });
-        res.status(200).json(newUser);
+        res.send(newUser);
     } catch(err) {
         res.status(400).json(err);
     }

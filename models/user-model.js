@@ -14,8 +14,8 @@ const userSchema = new mongoose.Schema({
         required: true,
         match: [/.+@.+\..+/, 'Please fill a valid email address']
     },
-    thoughts: [thoughtSchema],
-    friends: [mongoose.ObjectId]
+    thoughts: [{type: mongoose.Schema.Types.ObjectId}],
+    friends: [{type: mongoose.Schema.Types.ObjectId}]
 },
     {
         toJSON: { virtuals: true }
