@@ -14,7 +14,7 @@ router.get('/', async(req, res) => {
 
 router.get('/:id', async(req, res) => {
     try {
-        const response = await Thought.findById(req.params.id);
+        const response = await Thought.findById(req.params.id).lean();
         res.status(200).json(response);
     } catch(err){
         res.status(400).json(err);
@@ -64,12 +64,16 @@ router.delete('/:id', async(req, res) => {
 
 router.post('/:thoughtId/reactions', async(req, res) => {
     try {
-        const newReaction = await Thought.findOneAndUpdate(
-            {_id: req.params.thoughtId},
-            {$push: {reactions: req.params.reactions}},
-            {new: true}
-        )
-        res.status(200).json(newReaction);
+        const findThought = await Thought.findById(req.params.thoughtId).lean()
+        if (findThought) {
+            findThought.reactions.push(req.body);
+            const updateThought = await Thought.updateOne({
+                _id: new ObjectId(req.params.thoughtId)
+            }, findThought);
+            res.status(200).send(updateThought);
+        } else {
+            res.send('Thought ID is invalid');
+        }
     } catch(err) {
         res.status(400).json(err);
     }
@@ -79,7 +83,7 @@ router.delete('/:thoughtId/reactions/:reactionId', async(req, res) => {
     try {
         const deleteReaction = await Thought.findOneAndUpdate(
             {_id: req.params.thoughtId},
-            {$pull: {reactions: req.params.reactionId}},
+            {$pull: {reactions: { _id: req.params.reactionId } } },
             {new: true}
         )
     } catch(err) {

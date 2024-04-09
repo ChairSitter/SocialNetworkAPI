@@ -13,7 +13,6 @@ router.get('/', async(req, res) => {
     }
 })
 
-//not sure about this one
 router.get('/:id', async(req, res) => {
     try {
         const response = await User.findOne({_id: req.params.id});
@@ -35,7 +34,6 @@ router.post('/', async(req, res) => {
     }
 })
 
-//not sure about this one either
 router.put('/:id', async (req, res) => {
     try {
         const updateUser = await User.updateOne({
