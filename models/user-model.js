@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { thoughtSchema } = require('./thought-model');
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -11,10 +12,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         unique: true,
         required: true,
-        match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, 'Please fill a valid email address']
+        match: [/.+@.+\..+/, 'Please fill a valid email address']
     },
-    thoughts: {type: Array},
-    friends: {type: Array}
+    thoughts: [thoughtSchema],
+    friends: [mongoose.ObjectId]
 },
     {
         toJSON: { virtuals: true }
